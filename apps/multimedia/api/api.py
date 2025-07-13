@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from apps.multimedia.api.serializers import GraphicDataSerializer
 from apps.multimedia.utils import contextGraph, set_fechas
-from empresa.models import Empresa
+from apps.empresa.models import Empresa
 from django.http import FileResponse
 import os
 from pathlib import Path

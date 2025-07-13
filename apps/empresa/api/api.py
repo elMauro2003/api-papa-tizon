@@ -1,6 +1,6 @@
 # empresa/api_views.py
 from rest_framework import viewsets, permissions
-from empresa.models import Empresa
+from apps.empresa.models import Empresa
 from apps.empresa.api.serializers import EmpresaSerializer
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 

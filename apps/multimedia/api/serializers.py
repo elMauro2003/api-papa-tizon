@@ -1,6 +1,6 @@
 # multimedia/serializers.py
 from rest_framework import serializers
-from empresa.models import Empresa
+from apps.empresa.models import Empresa
 from datetime import datetime
 
 class GraphicDataSerializer(serializers.Serializer):

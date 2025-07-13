@@ -1,6 +1,6 @@
 # empresa/filters.py
 import django_filters
-from empresa.models import Empresa
+from apps.empresa.models import Empresa
 
 class EmpresaFilter(django_filters.FilterSet):
     nombre = django_filters.CharFilter(lookup_expr='icontains')

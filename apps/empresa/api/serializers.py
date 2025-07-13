@@ -1,15 +1,9 @@
 # empresa/serializers.py
 from rest_framework import serializers
-from empresa.models import Empresa
+from apps.empresa.models import Empresa
 from apps.estacion.models import Estacion
 
-class EstacionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Estacion
-        fields = ['id', 'nombre']  # Ajusta según tu modelo Estacion
-
 class EmpresaSerializer(serializers.ModelSerializer):
-    estacion = EstacionSerializer(read_only=True)
     estacion_id = serializers.PrimaryKeyRelatedField(
         queryset=Estacion.objects.all(),
         source='estacion',
