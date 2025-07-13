@@ -1,17 +1,12 @@
 # clima/serializers.py
 from rest_framework import serializers
 from clima.models import Clima
-from apps.empresa.models import Empresa
+from apps.empresa.api.serializers import EmpresaSerializer
 from apps.estacion.models import Estacion
 
 class EstacionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Estacion
-        fields = '__all__'
-
-class EmpresaSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Empresa
         fields = '__all__'
 
 class ClimaSerializer(serializers.ModelSerializer):

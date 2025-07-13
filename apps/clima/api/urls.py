@@ -1,7 +1,7 @@
 # clima/urls.py
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from apps.clima.api_views import ClimaViewSet
+from apps.clima.api.api import ClimaViewSet
 
 router = DefaultRouter()
 router.register(r'clima', ClimaViewSet, basename='clima')
