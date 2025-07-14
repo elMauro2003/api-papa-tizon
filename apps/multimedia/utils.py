@@ -8,6 +8,7 @@ import datetime
 def contextGraph(datos):
     start = datos['fecha_inicio']
     end = datos['fecha_fin']
+    empresa_id = datos['empresa'].id
     dias = (end-start).days+1
     dates = []
     for i in range(0,dias):
@@ -15,7 +16,8 @@ def contextGraph(datos):
         if Clima.objects.all().filter(fecha=date).exists():
             dates.append(date.strftime("%Y-%m-%d"))
     dias = len(dates)
-    est = Empresa.objects.values('estacion').filter(id=datos['empresa'])
+    #est = Empresa.objects.values('estacion').filter(id=datos['empresa'])
+    est = Empresa.objects.values('estacion').filter(id=empresa_id)
     clima = Clima.objects.values('fecha','estacion','temperatura_media','temperatura_maxima','temperatura_minima','precipitacion').filter(fecha__gte=start).filter(fecha__lte=end).filter(estacion=est[0]['estacion']).order_by('fecha')
     
     ####PRIMER GRAFICO####

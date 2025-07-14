@@ -30,6 +30,7 @@ urlpatterns = [
     path('', include('apps.estacion.api.urls')),
     path('', include('apps.extras.api.urls')),
     path('', include('apps.multimedia.api.urls')),
+    path('', include('apps.mensajes.api.urls')),
     path('api/auth/', include([
         path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
         path('refresh/', TokenRefreshView.as_view(), name='token_refresh'),

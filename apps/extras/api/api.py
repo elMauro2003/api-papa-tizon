@@ -4,7 +4,7 @@ from apps.extras.models import Aparicion, DatosPlantacion
 from apps.extras.api.serializers import AparicionSerializer, DatosPlantacionSerializer
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from django_filters.rest_framework import DjangoFilterBackend
-from apps.extras.api.filters import CultivarFilter
+from apps.extras.api.filters import CultivarFilter, DatosPlantacionFilter
 
 class AparicionViewSet(viewsets.ModelViewSet):
     queryset = Aparicion.objects.all()
@@ -23,7 +23,7 @@ class DatosPlantacionViewSet(viewsets.ModelViewSet):
     queryset = DatosPlantacion.objects.all()
     serializer_class = DatosPlantacionSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_class = CultivarFilter
+    filterset_class = DatosPlantacionFilter
     
     def get_permissions(self):
         if self.action in ['list', 'retrieve']:

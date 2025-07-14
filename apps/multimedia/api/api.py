@@ -9,6 +9,7 @@ from apps.empresa.models import Empresa
 from django.http import FileResponse
 import os
 from pathlib import Path
+from api_papa_tizon.settings import BASE_DIR
 
 class MultimediaViewSet(viewsets.ViewSet):
     permission_classes = [IsAuthenticated]
@@ -44,16 +45,32 @@ class MultimediaViewSet(viewsets.ViewSet):
             'form_data': data,
             'graphic_data': graphic_data
         })
-
     @action(detail=False, methods=['get'])
     def download_manual(self, request):
-        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        # Obtén la ruta base de la carpeta 'static' desde STATICFILES_DIRS
+        static_dir = os.path.join(BASE_DIR, 'static')
         filename = "ManualUsuario.pdf"
-        filepath = os.path.join(BASE_DIR, 'static', 'vendor', filename)
+        filepath = os.path.join(static_dir, filename)
         
+        # Verifica si el archivo existe
         if os.path.exists(filepath):
             return FileResponse(open(filepath, 'rb'), as_attachment=True, filename=filename)
+        
+        # Si el archivo no existe, devuelve un error
         return Response(
             {'error': 'El archivo no existe'},
             status=status.HTTP_404_NOT_FOUND
         )
+    # @action(detail=False, methods=['get'])
+    # def download_manual(self, request):
+    #     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    #     filename = "ManualUsuario.pdf"
+    #     filepath = os.path.join(BASE_DIR, 'static', filename)
+    #     print(filepath)
+        
+    #     if os.path.exists(filepath):
+    #         return FileResponse(open(filepath, 'rb'), as_attachment=True, filename=filename)
+    #     return Response(
+    #         {'error': 'El archivo no existe'},
+    #         status=status.HTTP_404_NOT_FOUND
+    #     )

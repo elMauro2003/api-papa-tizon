@@ -3,10 +3,15 @@ from datetime import datetime
 from apps.users.models import User
 
 # Create your models here.
-TMENSAJE = (("A","Alerta"),("M","Mensaje"),("C","Consulta"))
-TALERTA = (("No aspersión","No aspersión"), ("Alerta Tizón","Alerta Tizón"), ("Aspersión cada 7 días","Aspersión cada 7 días"),("Aspersión cada 5 días","Aspersión cada 5 días") )
 
 class Mensajes(models.Model):
+    TMENSAJE = (("A", "Alerta"), ("M", "Mensaje"), ("C", "Consulta"))
+    TALERTA = (
+        ("No aspersión", "No aspersión"),
+        ("Alerta Tizón", "Alerta Tizón"),
+        ("Aspersión cada 7 días", "Aspersión cada 7 días"),
+        ("Aspersión cada 5 días", "Aspersión cada 5 días"),
+    )
     remitente = models.ForeignKey(User,null=False,blank=False,on_delete=models.DO_NOTHING,related_name="remitente")
     mensaje = models.TextField()
     tipodealerta = models.CharField(max_length=30,choices=TALERTA,blank=True,null=True) 

@@ -1,7 +1,8 @@
 # mensajes/serializers.py
 from rest_framework import serializers
-from mensajes.models import Mensajes
+from apps.mensajes.models import Mensajes
 from apps.users.api.serializers import UserSerializer  # Asume que tienes un serializer para User
+from apps.users.models import User
 
 class MensajeSerializer(serializers.ModelSerializer):
     remitente = UserSerializer(read_only=True)
