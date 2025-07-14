@@ -4,9 +4,9 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from django_filters.rest_framework import DjangoFilterBackend
-from clima.models import Clima
+from apps.clima.models import Clima
 from apps.clima.api.serializers import ClimaSerializer
-from apps.clima.filters import ClimaFilter
+from apps.clima.api.filters import ClimaFilter
 from apps.clima.utils import (
     empresas_por_estacion,
     clasificar_dia,
@@ -78,6 +78,10 @@ class ClimaViewSet(viewsets.ModelViewSet):
             if not request.user.is_authenticated:
                 return Response({'error': 'Authentication required'}, status=status.HTTP_401_UNAUTHORIZED)
             
+            # Verifica si el usuario tiene una empresa asociada
+            if not request.user.empresa:
+                return Response({'error': 'El usuario no tiene una empresa asociada'}, status=status.HTTP_400_BAD_REQUEST)
+        
             defEmp = request.user.empresa.nombre
             idEmp = request.user.empresa.id
             defEnd = datetime.today()
@@ -92,6 +96,9 @@ class ClimaViewSet(viewsets.ModelViewSet):
             
             if not seleccion or seleccion == 'Seleccionar una empresa':
                 return Response({'error': 'Empresa no seleccionada'}, status=status.HTTP_400_BAD_REQUEST)
+            
+            if not fecha:
+                return Response({'error': 'Fecha no seleccionada'}, status=status.HTTP_400_BAD_REQUEST)
             
             try:
                 end = datetime.strptime(fecha, '%Y-%m-%d')

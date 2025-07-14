@@ -1,8 +1,7 @@
-from clima.models import Clima
-from clima.utils import buscar_senal
+from apps.clima.models import Clima
+from apps.clima.utils import buscar_senal
 from apps.empresa.models import Empresa
-from extras.models import Aparicion
-from multimedia.forms import GenForm
+from apps.extras.models import Aparicion
 from datetime import datetime
 import datetime
 

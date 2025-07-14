@@ -1,7 +1,8 @@
 # extras/serializers.py
 from rest_framework import serializers
-from extras.models import Aparicion, DatosPlantacion
+from apps.extras.models import Aparicion, DatosPlantacion
 from apps.empresa.api.serializers import EmpresaSerializer
+from apps.empresa.models import Empresa
 
 class AparicionSerializer(serializers.ModelSerializer):
     empresa = EmpresaSerializer(read_only=True)

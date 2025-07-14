@@ -1,6 +1,6 @@
 # extras/filters.py
 import django_filters
-from extras.models import Aparicion, DatosPlantacion
+from apps.extras.models import Aparicion, DatosPlantacion
 
 class CultivarFilter(django_filters.FilterSet):
     empresa = django_filters.CharFilter(field_name='empresa__nombre', lookup_expr='icontains')

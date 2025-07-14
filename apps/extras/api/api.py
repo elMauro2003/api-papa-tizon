@@ -1,6 +1,6 @@
 # extras/api_views.py
 from rest_framework import viewsets
-from extras.models import Aparicion, DatosPlantacion
+from apps.extras.models import Aparicion, DatosPlantacion
 from apps.extras.api.serializers import AparicionSerializer, DatosPlantacionSerializer
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from django_filters.rest_framework import DjangoFilterBackend
