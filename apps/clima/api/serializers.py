@@ -3,6 +3,7 @@ from rest_framework import serializers
 from apps.clima.models import Clima
 from apps.empresa.api.serializers import EmpresaSerializer
 from apps.estacion.models import Estacion
+from apps.empresa.models import Empresa
 
 class EstacionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -10,9 +11,10 @@ class EstacionSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ClimaSerializer(serializers.ModelSerializer):
-    #estacion = EstacionSerializer(read_only=True)
     estacion = serializers.PrimaryKeyRelatedField(queryset=Estacion.objects.all())
-    empresas = EmpresaSerializer(many=True, read_only=True, source='empresa')
+    empresa = serializers.PrimaryKeyRelatedField(
+        many=True, queryset=Empresa.objects.all(), required=False
+    )
     
     class Meta:
         model = Clima

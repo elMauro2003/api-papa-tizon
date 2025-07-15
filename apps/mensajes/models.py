@@ -19,5 +19,5 @@ class Mensajes(models.Model):
     destinatario = models.ForeignKey(User,null=False,blank=False,on_delete=models.DO_NOTHING,related_name="destinatario")
     recibido = models.BooleanField('Recibido', default=False)
     img = models.FileField(upload_to="media" ,null=True,blank=True)
-    created_at = models.DateTimeField(default=datetime.now()) 
-    updated_at = models.DateTimeField(default=datetime.now())
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

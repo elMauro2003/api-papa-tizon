@@ -1,7 +1,7 @@
 # mensajes/serializers.py
 from rest_framework import serializers
 from apps.mensajes.models import Mensajes
-from apps.users.api.serializers import UserSerializer  # Asume que tienes un serializer para User
+from apps.users.api.serializers import UserSerializer 
 from apps.users.models import User
 
 class MensajeSerializer(serializers.ModelSerializer):
@@ -20,7 +20,8 @@ class MensajeSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'mensaje': {'required': True},
             'tipodemensaje': {'required': True},
-            'img': {'required': False}
+            'img': {'required': False, 'allow_null': True},
+            'tipodealerta': {'required': False, 'allow_null': True},
         }
 
     def create(self, validated_data):
@@ -29,8 +30,9 @@ class MensajeSerializer(serializers.ModelSerializer):
         return super().create(validated_data)
     
     def to_internal_value(self, data):
-        # Manejar correctamente los datos multipart (para imágenes)
-        if isinstance(data, dict) and 'img' in data and isinstance(data['img'], str):
-            if not data['img']:
+        if isinstance(data, dict):
+            if 'img' in data and not data['img']:
                 data.pop('img')
+            if 'tipodealerta' in data and not data['tipodealerta']:
+                data.pop('tipodealerta')
         return super().to_internal_value(data)

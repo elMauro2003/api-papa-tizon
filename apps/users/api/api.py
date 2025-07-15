@@ -13,7 +13,7 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     
     def get_permissions(self):
-        if self.action in ['create', 'list', 'retrieve']:
+        if self.action in ['create', 'list', 'retrieve', 'logout']:
             permission_classes = [IsAuthenticated]
         else:
             permission_classes = [IsAuthenticated, IsAdminUser]
@@ -21,9 +21,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        if user.is_admin:
-            return User.objects.all()
-        return User.objects.filter(id=user.id)
+        return User.objects.all() if user.is_admin else User.objects.filter(id=user.id)
 
     @action(detail=False, methods=['get'])
     def pending_approval(self, request):

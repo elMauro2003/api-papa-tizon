@@ -5,6 +5,7 @@ from apps.mensajes.api.serializers import MensajeSerializer
 from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 from apps.mensajes.api.filters import MensajeFilter1, MensajeFilter2
+from django.db.models import Q
 
 class MensajeViewSet(viewsets.ModelViewSet):
     serializer_class = MensajeSerializer
@@ -15,10 +16,8 @@ class MensajeViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         # Filtra mensajes donde el usuario es remitente o destinatario
         return Mensajes.objects.filter(
-            destinatario=self.request.user
-        ) | Mensajes.objects.filter(
-            remitente=self.request.user
-        )
+            Q(destinatario=self.request.user) | Q(remitente=self.request.user)
+        ).select_related('remitente', 'destinatario').distinct()
 
     def perform_create(self, serializer):
         # Marcar automáticamente el mensaje como no recibido al crearlo

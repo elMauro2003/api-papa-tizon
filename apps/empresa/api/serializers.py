@@ -2,6 +2,7 @@
 from rest_framework import serializers
 from apps.empresa.models import Empresa
 from apps.estacion.models import Estacion
+from rest_framework.validators import UniqueValidator
 
 class EmpresaSerializer(serializers.ModelSerializer):
     estacion_id = serializers.PrimaryKeyRelatedField(
@@ -14,7 +15,7 @@ class EmpresaSerializer(serializers.ModelSerializer):
         model = Empresa
         fields = '__all__'
         extra_kwargs = {
-            'nombre': {'required': True},
+            'nombre': {'validators': [UniqueValidator(queryset=Empresa.objects.all())]},
             'representante': {'required': True},
             'municipio': {'required': True},
             'provincia': {'required': True}

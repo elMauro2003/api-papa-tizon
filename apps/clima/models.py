@@ -17,7 +17,8 @@ class Clima(models.Model):
     precipitacion = models.DecimalField(decimal_places=1,max_digits=5, null=True,blank=True)
     horas_hr_90 = models.DecimalField(decimal_places=1,max_digits=5, null=True,blank=True)
     temperatura_media_hr_90 = models.DecimalField(decimal_places=1,max_digits=5, null=True,blank=True)
-    empresa = models.ManyToManyField(Empresa)
+    #empresa = models.ManyToManyField(Empresa)
+    empresa = models.ManyToManyField(Empresa, related_name='clima_empresa')
     favorable = models.IntegerField(null=True) # -1 no determinable
     severidad = models.IntegerField(null=True) # -1 no determinable
     deteccion_inicial = models.IntegerField(null=True)
